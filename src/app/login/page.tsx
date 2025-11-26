@@ -10,7 +10,7 @@ export default function Login() {
       <h1
         className={style.H1}
       >
-        My Hub App
+        TaskFlow IA
       </h1>
       <div
         className={style.Divider}
