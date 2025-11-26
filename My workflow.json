@@ -1,0 +1,777 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "b3e316df-0f15-466f-a914-fa88196b1683",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -256,
+        -80
+      ],
+      "id": "e13f5db3-f6d4-4b04-acdb-f26837459ac8",
+      "name": "Webhook",
+      "webhookId": "b3e316df-0f15-466f-a914-fa88196b1683",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "9b71f1b3-11d4-4e7b-a47b-43524eca8004",
+              "leftValue": "={{$json.headers.authorization}}",
+              "rightValue": "Bearer 8f7c9e0d2b1a65f4e3c2d1b0a9876543",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -96,
+        -96
+      ],
+      "id": "f7da1785-868e-48a9-a745-159fe02bf1d5",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Code in JavaScript').item.json.intent }}",
+                    "rightValue": "add_todo",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "124f74a4-a049-407d-ae21-acbaa5937f0a"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8d65f46d-15c1-4f24-bb95-19834ddd9816",
+                    "leftValue": "={{ $('Code in JavaScript').item.json.intent }}",
+                    "rightValue": "greeting",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "1b7221fb-ab89-4f16-ba6e-d8a0e2f358ba",
+                    "leftValue": "={{ $('Code in JavaScript').item.json.intent }}",
+                    "rightValue": "no_item_provided",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "7280a23c-8bce-4a95-8203-7307fc7159f8",
+                    "leftValue": "={{ $('Code in JavaScript').item.json.intent }}",
+                    "rightValue": "complete_task",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "daf41541-83f9-4663-8607-c394e47bdc58",
+                    "leftValue": "={{ $('Code in JavaScript').item.json.intent }}",
+                    "rightValue": "delete_task",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5a68fa9e-69d3-4c36-be03-a382e965164a",
+                    "leftValue": "={{ $('Code in JavaScript').item.json.intent }}",
+                    "rightValue": "update_task",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        1200,
+        -80
+      ],
+      "id": "484ad747-35cd-4826-ae03-775164f6f902",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "tableId": "todo_items",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "task_description",
+              "fieldValue": "={{ $json.item }}"
+            },
+            {
+              "fieldId": "title",
+              "fieldValue": "={{ $json.title }}"
+            },
+            {
+              "fieldId": "category",
+              "fieldValue": "={{ $json.category }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1504,
+        -464
+      ],
+      "id": "d72edb16-d5a0-4d1d-a57b-bc7e6fb796b7",
+      "name": "Create a row",
+      "credentials": {
+        "supabaseApi": {
+          "id": "Et4Ya0NW5iHNrKEI",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"status\": \"not_item_provided\",\n  \"message\": \"{{ $json.response_message }}\"\n}",
+        "options": {
+          "responseCode": 400
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1504,
+        -96
+      ],
+      "id": "006efbc8-2468-432b-87e2-e104b6e7c4d4",
+      "name": "Respond to Webhook2",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"status\": \"success\",\n  \"message\": \"{{ $('Switch').item.json.response_message }}\",\n  \"task\": \"{{ $json.task_description }}\"\n}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1696,
+        -464
+      ],
+      "id": "bdfb6f9d-4178-482f-b1ca-d489a9baab15",
+      "name": "Tarefa add",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"status\": \"greeting\",\n  \"message\": \"{{ $json.response_message }}\"\n}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1504,
+        -272
+      ],
+      "id": "21156497-082d-4521-9e43-e56453da1d24",
+      "name": "Chat Initiated",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Você é um analista de intenção e extrator de dados JSON.\nSeu objetivo é classificar a intenção do usuário e extrair os dados necessários, incluindo o ID da tarefa, se a tarefa for identificada no contexto fornecido.\nSua única saída DEVE ser um objeto JSON. Você está proibido de gerar qualquer prosa, explicação, introdução ou texto de preâmbulo.\n\n### CONTEXTO DAS TAREFAS EXISTENTES:\n// O nó anterior deve injetar a lista de tarefas existentes aqui.\n// Use esta lista para encontrar o 'id' correspondente ao título da tarefa mencionada pelo usuário.\n\n### REGRAS DE CLASSIFICAÇÃO E EXTRAÇÃO:\n1.  **INTENÇÕES VÁLIDAS:** \"add_todo\", \"update_task\", \"complete_task\", \"delete_task\", \"filter_tasks\", \"greeting\", \"no_item_provided\", \"unknown\".\n2.  **CATEGORY VÁLIDAS:** \"sport\", \"casa\", \"cozinha\", \"compras\", \"trabalho\", \"estudos\", \"musica\", \"pessoal\", ou \"outros\".\n\n3.  **EXTRAÇÃO DE ID (CRÍTICO):**\n    * Se a intent for **\"update_task\"**, **\"complete_task\"**, ou **\"delete_task\"**: Você DEVE encontrar o item no **CONTEXTO DAS TAREFAS EXISTENTES** que corresponda ao `target_title` ou `item` extraído (comparando em minúsculas) e retornar o `id` (número) correspondente.\n    * Para todas as outras intenções, o campo **\"id\"** deve ser uma string vazia (\"\").\n\n4.  **REGRAS DE FORMATAÇÃO E VALORES:**\n    * **Busca por Título:** Os campos de busca (`item` em gestão, `target_title` em update) DEVEM ser extraídos **TODO EM MINÚSCULAS** (máx. 4 palavras) para maximizar a correspondência com o CONTEXTO.\n    * **Novo Conteúdo:** Os campos de descrição e título novos (`item` em adição, `title`, `new_item`, `new_title`) DEVEM preservar a capitalização inicial correta.\n\n5.  **REGRAS POR INTENÇÃO (Campos não mencionados são strings vazias):**\n    * **ADD_TODO:** Preencha \"item\", \"title\" e \"category\". O campo \"id\" deve ser \"\".\n    * **UPDATE_TASK:** Use palavras gatilho (\"mudar\", \"trocar\", etc.). Preencha **\"target_title\"**, **\"new_item\"**, **\"new_title\"** e o **\"id\"** extraído do contexto.\n    * **DELETE/COMPLETE/FILTER:** Preencha o **\"item\"** (para busca de ID ou filtro) e o **\"id\"** (se for delete/complete) ou a **\"category\"** (se for filter).\n\n6.  **MENSAGEM/ERRO:** Gere uma \"response_message\" amigável e direta. Se a intenção for gestão e o ID não for encontrado no contexto, use \"unknown\" e uma mensagem de erro.\n\n### FORMATO DE SAÍDA OBRIGATÓRIO (JSON):\n{\n  \"id\": \"ID da tarefa ou string vazia\",\n  \"intent\": \"add_todo\" | \"update_task\" | \"complete_task\" | \"delete_task\" | \"filter_tasks\" | \"greeting\" | \"no_item_provided\" | \"unknown\",\n  \"item\": \"Descrição/Palavra-chave\",\n  \"title\": \"Título resumido (apenas em 'add_todo')\",\n  \"category\": \"sport\" | \"casa\" | \"cozinha\" | \"compras\" | \"trabalho\" | \"estudos\" | \"musica\" | \"pessoal\" | \"outros\" | \"\",\n  \"target_title\": \"Título antigo para busca (apenas em 'update_task', minúsculas)\",\n  \"new_item\": \"Nova descrição da tarefa (apenas em 'update_task')\",\n  \"new_title\": \"Novo título resumido (apenas em 'update_task')\",\n  \"response_message\": \"Mensagem que deve ser exibida ao usuário.\"\n}",
+              "role": "model"
+            },
+            {
+              "content": "=### CONTEXTO DAS TAREFAS EXISTENTES::\n{{$json.task_context}}\n",
+              "role": "model"
+            },
+            {
+              "content": "=### MENSAGEM DO USUÁRIO PARA ANÁLISE:\n{{ $('If').first().json.body.message }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        624,
+        -112
+      ],
+      "id": "54d7579d-db12-4799-9d6f-4cd5d2354876",
+      "name": "Message a model",
+      "retryOnFail": true,
+      "maxTries": 4,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "jpPy6As2Ncp0rc9P",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const responseItem = $input.first().json\nlet geminiReponseText;\n\nif (responseItem.content && responseItem.content.parts && responseItem.content.parts.length > 0) {\n  geminiReponseText = responseItem.content.parts[0].text\n} else {\n  throw new Error(\"Falha ao encontrar a resposta de texto no objeto Gemini.\");\n}\n\nlet jsonString = geminiReponseText.trim();\njsonString = jsonString.replace(/^```json\\s*/i, '');\njsonString = jsonString.replace(/\\s*```$/, '');\n\ntry {\n    const parsedJson = JSON.parse(jsonString);\n    return [{ json: parsedJson }];\n} catch (e) {\n    console.log(\"Erro ao parsear JSON limpo:\", e);\n    return [{ json: { intent: \"unknown\", message: \"Erro de formatação da IA. Tente novamente.\" } }];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        976,
+        -112
+      ],
+      "id": "f48dcfc3-4118-4c3c-bbc1-58a066e16a6b",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "todo_items",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $json.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "is_completed",
+              "fieldValue": "={{ true }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1504,
+        64
+      ],
+      "id": "980cf7cc-b7d9-4b00-9e2a-daa2db0dc072",
+      "name": "Update a row",
+      "credentials": {
+        "supabaseApi": {
+          "id": "Et4Ya0NW5iHNrKEI",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"status\": \"success\",\n  \"message\": \"{{ $('Switch').item.json.response_message }}\",\n  \"task\": \"{{ $json.task_description }}\"\n}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1728,
+        80
+      ],
+      "id": "9483886d-f03c-4228-a9c3-d951b544bd26",
+      "name": "Tarefa add1",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "tableId": "todo_items",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{$json.id}}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1504,
+        256
+      ],
+      "id": "f326c7a4-8a9a-42f3-a5e8-9b1f997f6c2d",
+      "name": "Delete a row",
+      "credentials": {
+        "supabaseApi": {
+          "id": "Et4Ya0NW5iHNrKEI",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"status\": \"success\",\n  \"message\": \"{{ $('Switch').item.json.response_message }}\",\n  \"task\": \"{{ $json.task_description }}\"\n}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1728,
+        256
+      ],
+      "id": "6542710a-f83c-4fb8-b07d-282cf8c4f6b0",
+      "name": "Tarefa add2",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "todo_items",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $json.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "task_description",
+              "fieldValue": "={{ $json.new_item }}"
+            },
+            {
+              "fieldId": "title",
+              "fieldValue": "={{ $json.new_title }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1504,
+        448
+      ],
+      "id": "705da5d0-60fe-4cf2-b8d3-100eb41d675a",
+      "name": "Update a row1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "Et4Ya0NW5iHNrKEI",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"status\": \"success\",\n  \"message\": \"{{ $('Switch').item.json.response_message }}\",\n  \"task\": \"{{ $json.task_description }}\"\n}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1744,
+        448
+      ],
+      "id": "cb0b77f7-070b-492e-9f81-d7fbae5c8042",
+      "name": "Tarefa add3",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "todo_items",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        144,
+        -144
+      ],
+      "id": "11c92f5b-f192-45f7-828f-6a18e1f1120a",
+      "name": "Get many rows",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "Et4Ya0NW5iHNrKEI",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// O n8n armazena os dados do nó anterior em 'items'.\nconst taskList = $input.all(); // Ajuste o caminho se a lista de tarefas não estiver em 'items[0].json.data'\n\n// O método JSON.stringify() converte o array de objetos em uma string JSON.\nconst jsonString = JSON.stringify(taskList);\n\n// Retorna a string JSON formatada no campo 'task_context'.\nreturn [{\n  json: {\n    task_context: jsonString\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        432,
+        -240
+      ],
+      "id": "657c80e8-5479-47aa-b4c4-a6fc8281483a",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"success\",\n  \"message\": \"O gemini teve um problema, tente novamente!\",\n  \"task\": \"\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        960,
+        160
+      ],
+      "id": "b4675274-0a0f-4811-9524-c01d9eaca2ee",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "localhost:5678",
+            "connection": "keep-alive",
+            "content-type": "application/json",
+            "authorization": "Bearer 8f7c9e0d2b1a65f4e3c2d1b0a9876543",
+            "accept": "*/*",
+            "accept-language": "*",
+            "sec-fetch-mode": "cors",
+            "user-agent": "node",
+            "pragma": "no-cache",
+            "cache-control": "no-cache",
+            "accept-encoding": "gzip, deflate",
+            "content-length": "63"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "message": "adicione uma tarefa para melhorar o ui do projeto"
+          },
+          "webhookUrl": "http://sua_url_ou_ip.com:5678/webhook/b3e316df-0f15-466f-a914-fa88196b1683",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Get many rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Create a row",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Chat Initiated",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update a row",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Delete a row",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update a row1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a row": {
+      "main": [
+        [
+          {
+            "node": "Tarefa add",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tarefa add": {
+      "main": [
+        []
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a row": {
+      "main": [
+        [
+          {
+            "node": "Tarefa add1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete a row": {
+      "main": [
+        [
+          {
+            "node": "Tarefa add2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a row1": {
+      "main": [
+        [
+          {
+            "node": "Tarefa add3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many rows": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "6406ebb7-a9ed-4023-822a-63b709937d86",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0e60183d2131996368c5f600774fe410691e7fa0e9ab0c26a49a20f59e1c751c"
+  },
+  "id": "t71MY30znmP1hRuM",
+  "tags": []
+}
