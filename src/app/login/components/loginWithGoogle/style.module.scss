@@ -1,0 +1,25 @@
+.LoginWrapper {
+  width: 100%;
+  max-width: 300px;
+}
+
+.LoginBtn {
+  padding: 0.5rem 1.5rem;
+  width: 100%;
+
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 0.25rem;
+  color: white;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+
+ &:hover {
+  background-color: white;
+  color: black;
+  scale: 1.05;
+}
+}
+
+

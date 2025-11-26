@@ -1,0 +1,24 @@
+.Perfil {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: #000;
+
+  img {
+    border-radius: 100%;
+  }
+
+  .PerfilInfos {
+    display: flex;
+    flex-direction: column;
+
+    span {
+      font-weight: bold;
+    }
+
+    p {
+      font-size: 0.75rem;
+    }
+  }
+}

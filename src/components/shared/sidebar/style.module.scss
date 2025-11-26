@@ -1,0 +1,43 @@
+.SidebarContainer {
+  padding: 1rem;
+  max-width: 240px;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background: #ffff;
+  border-radius: 0.5rem;
+
+  h1 {
+    color: #000;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+}
+
+.SidebarContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  p {
+    color: #525252;
+    font-size: 1.05rem;
+    font-weight: 600;
+
+  }
+}
+
+.SidebarChatHistory {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.SidebarChatHistoryList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}

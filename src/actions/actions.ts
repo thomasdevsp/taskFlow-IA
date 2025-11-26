@@ -1,14 +1,15 @@
 "use server"
 
+import { getSupabaseAdmin } from "@/lib/supabase/supabaseAdmin"
 import { revalidatePath } from "next/cache"
-import { ActionState } from "../types/types"
+import { ActionState, ChatSchema } from "../types/types"
 
 const N8N_WEBHOOK_URL = process.env.N8N_WEBHOOK_URL!
 const N8N_AUTH_TOKEN = process.env.N8N_AUTH_TOKEN
 
+const supabase = getSupabaseAdmin()
 
 export async function processChatInput(
-  prevState: ActionState,
   formData: FormData
 ): Promise<ActionState> {
   const message = formData.get('message')
@@ -53,4 +54,43 @@ export async function processChatInput(
   }
 }
 
+export async function saveChatHistory(
+  userId: string,
+  chatId: string | null,
+  chatHistory: ChatSchema[]
+) {
+
+  if(chatId) {
+    const {error} = await supabase
+    .from('chat_history')
+    .update({conversation: chatHistory})
+    .eq('id', chatId)
+
+    if(error) {
+      console.error('Erro Supabase (UPDATE):', error);
+      return { success: false, id: null };
+    }
+
+    return {success: true, id: chatId}
+
+  } else {
+    const {data, error} = await supabase
+    .from("chat_history")
+    .insert({
+      id: crypto.randomUUID(),
+      user_id: userId,
+      conversation: chatHistory,
+    })
+    .select('id')
+
+    if(error || !data || data.length === 0) {
+      console.error('Erro Supabase (INSERT):', error);
+      return { success: false, id: null }
+    }
+
+    return {success: true, id: data[0].id}
+  }
+
+
+}
 

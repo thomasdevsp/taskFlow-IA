@@ -1,0 +1,37 @@
+.ChatHistoryContainer {
+  padding: 0.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: #cfcfcf;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  border-radius: 0.5rem;
+
+  &:hover {
+    background: #e6e5e5;
+    color: #202020;
+    scale: 1.02;
+  }
+}
+
+.ChatHistoryActive {
+  background: #e6e5e5;
+  color: #202020;
+}
+
+.DeleteButton {
+  color: #cfcfcf;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+
+  &:hover {
+  color: #ff0000;
+  opacity: 1;
+  scale: 1.1;
+  }
+}

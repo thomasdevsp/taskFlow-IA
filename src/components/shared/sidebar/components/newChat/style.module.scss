@@ -1,0 +1,19 @@
+.NewChatContainer {
+  padding: 0.5rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  color: #cfcfcf;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  border-radius: 0.5rem;
+
+  &:hover {
+    background: #e6e5e5;
+    color: #202020;
+    scale: 1.02;
+  }
+}

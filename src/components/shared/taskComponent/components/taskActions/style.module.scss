@@ -1,23 +1,30 @@
-.TaskActions {
-  min-height: 120px;
-
+.TaskActionsContainer {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 1rem;
 
 }
 
-%BaseButton {
-  padding: 0.5rem;
-
-  border: 1px solid #3d3d3d55;
-  border-radius: 0.5rem;
+.TaskActionsTrigger {
   cursor: pointer;
   opacity: 0.7;
   transition: all 0.3s ease;
 
   &:hover {
     opacity: 1;
+    scale: 1.1;
+  }
+}
+
+%BaseButton {
+
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+
+  &:hover {
+    opacity: 1;
+    scale: 1.1;
   }
 }
 
@@ -37,6 +44,9 @@
 .DeleteButton {
   @extend %BaseButton;
 
-  background: rgb(243, 69, 69);
-  color: #fff;
+  color: #252525;
+
+  &:hover {
+  color: #ff0000;
+  }
 }

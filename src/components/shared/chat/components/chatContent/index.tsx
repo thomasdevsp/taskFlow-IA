@@ -1,17 +1,21 @@
-import { ChatSchema } from "@/src/types/types"
-import style from "./style.module.scss"
+"use client"
+
+import { ChatSchema } from "@/types/types";
+import { useSession } from "next-auth/react";
+import style from "./style.module.scss";
 
 interface ChatContentProps {
-  chat: ChatSchema[]
+  chat: ChatSchema[] | undefined;
 }
 
 export default function ChatContent({ chat }: ChatContentProps) {
-  const chatIsIniteated = chat.length > 1
+  const session = useSession()
+  const chatIsIniteated = (chat?.length ?? 0) > 0
 
   return chatIsIniteated ?
     (
       <div className={style.ChatContent}>
-        {chat?.slice(1).map((item, index) => {
+        {chat?.map((item, index) => {
           const styleClass = item.author === "Client" ? style.ClientMessage : style.BotMessage
 
           return (
@@ -28,15 +32,21 @@ export default function ChatContent({ chat }: ChatContentProps) {
     :
     (
       <div className={style.ChatContentNotStarted}>
+
+        <div>
+          <p>
+            Olá, {session.data?.user.name}
+          </p>
+
+          <h1>
+            Como posso te ajudar?
+          </h1>
+        </div>
+
         <img src="/robot.png" alt="" />
 
-        <h1>
-          Olá sou seu Chat Assistente!!
-        </h1>
-        <p>Está pronto para gerenciar suas tarefas?
-          <br />
-          quando quiser iniciar é só me encaminhar uma mensagem
-        </p>
+
+
       </div>
     )
 }

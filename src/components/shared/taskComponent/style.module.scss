@@ -1,42 +1,23 @@
 .TaskContainer {
-  padding: 1rem;
-  max-width: 450px;
-  min-height: 170px;
+  padding: 0.5rem;
   width: 100%;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  background: #555555;
-  border: 1px solid #4b4b4b;
-  border-radius: 0.5rem;
-  color: #FFFFFF;
+  color: #8f8f8f;
 
   h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 1.15rem;
+    font-weight: 500;
   }
 
-  p {
-    max-width: 300px;
-    color: #FFFFFF;
-  }
 }
 
 .TaskContent {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
+  width: 88%;
 
-.TaskInfo {
   display: flex;
-  gap: 1rem;
-
-  .Info {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
+  justify-content: space-between;
 }

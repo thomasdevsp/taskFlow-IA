@@ -1,48 +1,52 @@
 .ChatContainer {
-  max-width: 500px;
+  padding: 1rem;
+  max-width: 400px;
   width: 100%;
-  min-height: 100dvh;
   overflow-y: auto;
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 1rem;
 
-  background: #1f1f1f;
-  border-left: 2px solid #474747 ;
+  background: #fff;
+  border-radius: 0.5rem;
   overflow: hidden;
 }
 
 .ChatHeader {
-  padding: 0.65rem;
-
   display: flex;
-  justify-content: center;
-
-  background: #ebebeb;
+  flex-direction: column;
 
   h1 {
-    color: #4044c9;
+    color: #000000;
     font-size: 1.55rem;
+  }
+
+  p {
+    color: #b4b4b4;
   }
 }
 
 .ChatField {
-  padding: 0.5rem;
+  padding-right: 0.5rem;
 
   display: flex;
   align-items: center;
   gap: 0.5rem;
+
+  background: #dadada;
+  border-radius: 0.5rem;
 }
 
 .InputField {
-  background: #111111;
+  color: #000000;
+
 }
 
 .SendButton {
-  padding: 0.5rem;
-  width: 40px;
-  height: 40px;
+  padding: 0.25rem;
+  width: 30px;
+  height: 30px;
 
   display: flex;
   align-items: center;
@@ -56,6 +60,10 @@
 
   &:hover {
     opacity: 1;
+  }
 
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
   }
 }

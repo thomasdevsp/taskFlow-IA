@@ -1,9 +1,18 @@
 .LayoutContainer {
-  display: flex;
+  padding: 0.5rem;
+  max-height: 100dvh;
+  height: 100vh;
+  overflow: hidden;
 
-  background: #4044c9;
+  display: flex;
+  gap: 0.5rem;
+
+  background: #d0d2d4;
 }
 
 .LayoutContent {
+  max-height: 100dvh;
   width: 100%;
+
+  display: flex;
 }
