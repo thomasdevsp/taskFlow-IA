@@ -126,7 +126,9 @@ CREATE TABLE chat_history (
 
 #### 5.2. Configuração do n8n
 
-1.  EM ANDAMENTO!!
+1. Inicie o docker usando "docker compose up -d" 
+2. Abra o localhost do n8n e crie uma conta
+3. Importe o "My workflow" que vem junto com os arquivos do projeto
 
 ### 6\. Inicie o Servidor de Desenvolvimento
 
