@@ -24,11 +24,12 @@ Criar uma **base arquitetural desacoplada** onde a inteligência é provida por 
 
 | Tecnologia | Função no Projeto |
 | :--- | :--- |
-| **Gemini API** | **Inteligência Conversacional:** Analisa o texto do usuário e gera um payload estruturado (JSON) para ações CRUD. |
-| **n8n** | **Orquestração Low-Code:** Atua como o backend intermediário, gerindo o histórico e executando as operações de CRUD no Supabase. |
-| **Supabase (PostgreSQL + Auth)** | **Backend Unificado:** Consolida a base de dados relacional (PostgreSQL) e a infraestrutura para a autenticação OAuth. |
-| **OAuth 2.0 (via Supabase)** | **Controle de Acesso:** Garante que cada usuário gerencie apenas seu próprio conjunto de tarefas e histórico. |
-
+| **Next.js** | **Framework Frontend:** Essencial para o roteamento e a **Renderização do Lado do Servidor (SSR)**, garantindo melhor performance inicial e SEO. |
+| **Chakra UI** | **Sistema de Design:** Fornece um conjunto de componentes React acessíveis e prontos para uso, permitindo o **desenvolvimento rápido** da interface e foco na UX. |
+| **SASS & CSS Modules** | **Estilização e Modularidade:** O SASS fornece pré-processamento, e os CSS Modules garantem que os estilos sejam **isolados localmente**, prevenindo conflitos globais e facilitando a escalabilidade do CSS. |
+| **Gemini API** | **Inteligência Conversacional:** Analisa a intenção do usuário e gera o payload JSON estruturado que o n8n executa. |
+| **n8n** | **Orquestração Low-Code:** Atua como o servidor intermediário (backend), roteando a lógica, gerenciando o histórico e executando as operações de CRUD no Supabase. |
+| **Supabase (PostgreSQL + Auth)** | **Backend Unificado:** Consolida a base de dados relacional e a infraestrutura de autenticação (OAuth), simplificando a stack. |
 -----
 
 ## 💻 Como Rodar Localmente
@@ -126,7 +127,9 @@ CREATE TABLE chat_history (
 
 #### 5.2. Configuração do n8n
 
-1.  EM ANDAMENTO!!
+1. Inicie o docker usando "docker compose up -d" 
+2. Abra o localhost do n8n e crie uma conta
+3. Importe o "My workflow" que vem junto com os arquivos do projeto
 
 ### 6\. Inicie o Servidor de Desenvolvimento
 
