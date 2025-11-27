@@ -880,7 +880,7 @@
 
 "@supabase-js/source@supabase/supabase-js":
   version "0.0.0"
-  resolved "git+ssh://git@github.com/supabase/supabase-js.git#1bb9f825ade5a380fe029625ab5ba7f9640aae8c"
+  resolved "https://codeload.github.com/supabase/supabase-js/tar.gz/8d1e0c52c4f3b15e174eddc883611cb5a41c49f0"
 
 "@supabase/auth-js@2.84.0":
   version "2.84.0"
