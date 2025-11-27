@@ -61,10 +61,11 @@ export async function deleteTask(id: number) {
 
 // CHAT HISTORY FUNCTIONS
 
-export async function getAllChatHistory(): Promise<ChatHistorySchema[]> {
+export async function getAllChatHistory(userId: string): Promise<ChatHistorySchema[]> {
   const {data, error} = await supabase
   .from('chat_history')
   .select("*")
+  .eq("user_id", userId)
 
   if (error) {
 

@@ -20,6 +20,7 @@ export default function Chat() {
   const [userMessageInput, setUserMessageInput] = useState('')
   const [chat, setChat] = useState<ChatSchema[]>([])
   const [chatId, setChatId] = useState<string | null>(null)
+  const userId = session.data?.user.id ?? ""
 
   useEffect(() => {
     if (!chatHistory) {
@@ -65,7 +66,7 @@ export default function Chat() {
     });
 
     startTransition(async () => {
-      const actionResult = await processChatInput(formData)
+      const actionResult = await processChatInput(userId, formData)
 
       const isError = actionResult.status === "error" || actionResult.status === "fatal_error"
 

@@ -1,12 +1,15 @@
 import { getAllChatHistory } from "@/actions/supabase";
+import { auth } from "@/app/api/auth/auth";
 import ChatHistory from "./components/chatHistory";
 import NewChat from "./components/newChat";
 import Perfil from "./components/perfil";
 import style from "./style.module.scss";
 
 export default async function Sidebar() {
+  const session = await auth()
+  const userId = session?.user.id ?? ""
 
-  const data = await getAllChatHistory()
+  const data = await getAllChatHistory(userId)
 
   return (
     <div className={style.SidebarContainer}>

@@ -8,7 +8,7 @@ import style from "./style.module.scss";
 export default async function Home() {
   const session = await auth()
 
-  const todoList = await getTodoList()
+  const todoList = await getTodoList(session?.user.id as string)
 
   const sortedList = todoList.sort((a, b) => {
     if (a.is_completed && !b.is_completed) {

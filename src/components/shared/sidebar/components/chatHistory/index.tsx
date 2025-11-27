@@ -22,6 +22,7 @@ export default function ChatHistory({ index, item }: ChatHistoryProps) {
   const handleDeleteChat = async (e: React.MouseEvent) => {
     e.stopPropagation()
     await deleteChat(item.id)
+    setChatHistory("")
   }
 
 

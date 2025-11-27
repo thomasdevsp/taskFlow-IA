@@ -11,7 +11,8 @@ const N8N_AUTH_TOKEN = process.env.N8N_AUTH_TOKEN
 const supabase = getSupabaseAdmin()
 
 export async function processChatInput(
-  formData: FormData
+  userId: string,
+  formData: FormData,
 ): Promise<ActionState> {
   const message = formData.get('message')
 
@@ -20,7 +21,8 @@ export async function processChatInput(
   }
 
   const payload = {
-    message: message.trim().toLocaleLowerCase()
+    message: message.trim().toLocaleLowerCase(),
+    userId: userId,
   }
 
   try {
