@@ -8,10 +8,11 @@ const supabase = getSupabaseAdmin()
 
 // TODO FUNCTIONS
 
-export async function getTodoList() {
+export async function getTodoList(userId: string) {
   const {data, error} = await supabase
   .from("todo_items")
   .select("*")
+  .eq("user_id", userId)
 
   if (error) {
 
