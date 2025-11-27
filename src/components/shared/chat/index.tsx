@@ -32,7 +32,7 @@ export default function Chat() {
         const chatMessages = await getChat(chatHistory ?? "");
 
         if (chatMessages) {
-          setChat(chatMessages.conversation);
+          setChat(chatMessages.conversation as ChatSchema[]);
 
         }
         else {

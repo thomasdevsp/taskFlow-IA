@@ -43,7 +43,7 @@ export const authConfig: AuthOptions = {
       const { data: existingUser, error: fetchError } = await supabase
         .from("users")
         .select("id")
-        .eq("email", user.email)
+        .eq("email", user.email ?? "")
         .single()
 
       if (fetchError) {

@@ -1,6 +1,7 @@
 "use server"
 
 import { getSupabaseAdmin } from "@/lib/supabase/supabaseAdmin"
+import { Json } from "@/types/supabase"
 import { revalidatePath } from "next/cache"
 import { ActionState, ChatSchema } from "../types/types"
 
@@ -63,7 +64,7 @@ export async function saveChatHistory(
   if(chatId) {
     const {error} = await supabase
     .from('chat_history')
-    .update({conversation: chatHistory})
+    .update({conversation: chatHistory as unknown as Json})
     .eq('id', chatId)
 
     if(error) {
@@ -79,7 +80,7 @@ export async function saveChatHistory(
     .insert({
       id: crypto.randomUUID(),
       user_id: userId,
-      conversation: chatHistory,
+      conversation: chatHistory as unknown as Json,
     })
     .select('id')
 
