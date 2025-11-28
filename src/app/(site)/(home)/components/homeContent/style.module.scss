@@ -17,6 +17,12 @@
   }
 }
 
+.HomeContentHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .HomeContentTasks {
   width: 100%;
 

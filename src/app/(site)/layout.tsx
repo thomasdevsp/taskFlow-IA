@@ -2,8 +2,8 @@ import Layout from "@/components/layout";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dashboard App",
-  description: "Dashboard",
+  title: "Task Flow IA ",
+  description: "Task Flow Ia",
 };
 
 export default function RootLayout({

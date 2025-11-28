@@ -35,6 +35,7 @@ export default async function TaskComponent({
       <TaskActions
         id={id}
         isCompleted={is_completed!}
+        title={title}
       />
 
     </div>

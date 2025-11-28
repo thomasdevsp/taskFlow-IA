@@ -1,3 +1,4 @@
+import ModalAddTask from "@/components/shared/modalAddTask"
 import TaskComponent from "@/components/shared/taskComponent"
 import { TodoListSchema } from "@/types/types"
 import style from "./style.module.scss"
@@ -10,7 +11,12 @@ interface HomeContentProps {
 export default function HomeContent({ todoIsEmpty, todoList }: HomeContentProps) {
   return (
     <div className={style.HomeContent}>
-      <h1>Suas Tarefas</h1>
+
+      <div className={style.HomeContentHeader}>
+        <h1>Suas Tarefas</h1>
+
+        <ModalAddTask />
+      </div>
 
       {todoIsEmpty ?
         (
