@@ -6,7 +6,6 @@ import { revalidatePath } from "next/cache";
 import { getSupabaseAdmin } from "../lib/supabase/supabaseAdmin";
 
 const supabase = getSupabaseAdmin()
-const session = await auth()
 // TODO FUNCTIONS
 
 export async function getTodoList(userId: string) {
@@ -25,7 +24,9 @@ export async function getTodoList(userId: string) {
 }
 
 export async function insertTask(formData: FormData) {
-const rawTitle = formData.get('title') as string
+  const session = await auth()
+  const rawTitle = formData.get('title') as string
+
 
 
   const {data, error} = await supabase
