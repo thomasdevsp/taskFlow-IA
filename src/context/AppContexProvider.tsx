@@ -1,14 +1,21 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AppContext } from "./AppContex";
 import { IAppContexProviderProps } from "./types";
 
 export default function AppContextProvider({ children }: IAppContexProviderProps) {
   const [chatHistory, setChatHistory] = useState<string>()
 
+  useEffect(() => {
+    if (chatHistory) {
+      localStorage.setItem('chatHistory', chatHistory)
+    }
+  }, [chatHistory])
+
   function intiateNewChat() {
-    setChatHistory(crypto.randomUUID())
+    setChatHistory("")
+    localStorage.removeItem('chatHistory')
   }
 
   return (
