@@ -20,7 +20,7 @@ export default function HomeContent({ todoIsEmpty, todoList }: HomeContentProps)
 
       {todoIsEmpty ?
         (
-          <div>
+          <div className={style.HomeContentTasksEmpty}>
             <h1>
               No momento você não tem nenhum tarefa,
               que tal pedir para seu assistente cadastrar alguma tarefa para você!!
