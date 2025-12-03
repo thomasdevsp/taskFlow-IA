@@ -48,9 +48,10 @@
 
   div {
     padding: 0.5rem 1rem;
+    max-width: 90%;
     width: fit-content;
 
-    border-radius: 0.5rem;
+    border-radius: 0.5rem 0.5rem 0 0.5rem;
   }
 }
 
@@ -61,6 +62,8 @@
 
   div {
     background: #2C2C2C;
+
+    border-radius: 0.5rem 0.5rem 0.5rem 0;
   }
 }
 
@@ -72,6 +75,7 @@
   text-align: right;
 
   div {
+    width: fit-content;
     background: #513DFF;
   }
 

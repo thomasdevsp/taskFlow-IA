@@ -14,7 +14,7 @@ import style from "./style.module.scss";
 
 
 export default function Chat() {
-  const { chatHistory } = useAppContext()
+  const { chatHistory, setChatHistory } = useAppContext()
   const session = useSession()
   const [isPending, startTransition] = useTransition();
   const [userMessageInput, setUserMessageInput] = useState('')
@@ -22,7 +22,13 @@ export default function Chat() {
   const [chatId, setChatId] = useState<string | null>(null)
   const userId = session.data?.user.id ?? ""
 
+  // MARK: Use Effect
   useEffect(() => {
+    const savedChatHistory = localStorage.getItem('chatHistory')
+    if (savedChatHistory) {
+      setChatHistory(savedChatHistory)
+    }
+
     if (!chatHistory) {
       return;
     }
@@ -49,21 +55,31 @@ export default function Chat() {
 
   }, [chatHistory, setChat]);
 
+  // MARK: Handle Form Submit
   const handleFormSubmit = (formData: FormData) => {
-    const userMessage = userMessageInput.trim()
-
+    const userMessage = (formData.get('message') as string)?.trim()
     if (!userMessage) return
 
     const tempLoadingId = Date.now().toString()
 
-    flushSync(() => {
+    const newMessageAndPlaceholder = [
+      { message: userMessage, author: "Client" },
+      { message: '...', author: "Bot", id: tempLoadingId }
+    ];
+
+    flushSync(() => { //Força a dom atualizar para mostrar a mensagem do usuário antes de processar a resposta
       setUserMessageInput('');
       setChat(prev => ([
         ...(prev || []),
-        { message: userMessage, author: "Client" },
-        { message: '...', author: "Bot", id: tempLoadingId } // Placeholder
+        ...newMessageAndPlaceholder
+        // Placeholder
       ]));
     });
+
+    const baseHistoryForSave = [
+      ...chat,
+      ...newMessageAndPlaceholder
+    ].filter(msg => msg.message !== '...');
 
     startTransition(async () => {
       const actionResult = await processChatInput(userId, formData)
@@ -73,6 +89,11 @@ export default function Chat() {
       if (isError) {
         console.log(`Erro: ${actionResult.message}`);
       }
+
+      const botResponseMessage: ChatSchema = {
+        message: actionResult.message,
+        author: "Bot"
+      };
 
       setChat(prev => {
         const tempChat = prev.filter(msg => msg.id !== tempLoadingId)
@@ -86,25 +107,37 @@ export default function Chat() {
         ]
       })
 
+      const historyWithoutPlaceholder = baseHistoryForSave.filter(msg => msg.id !== tempLoadingId);
+
+      // Constrói o histórico final imutável (const) para o salvamento
+      const finalHistoryToSave = [
+        ...historyWithoutPlaceholder, // Mensagens antigas + cliente
+        botResponseMessage             // Resposta do Bot
+      ];
+
       if (session.data?.user.id) {
-        const saveResult = await saveChatHistory(session.data?.user.id, chatId, chat);
-
-        if (saveResult.success && saveResult.id && !chatId) {
-          setChatId(saveResult.id);
-        }
-
-        if (saveResult.success === false) {
-          console.log("Algo deu errado ao tentar salvar o chat", saveResult);
-
-        }
-
+        saveChatHistory(session.data.user.id, chatId, finalHistoryToSave)
+          .then(saveResult => {
+            // ✅ CORRETO: O saveResult aqui é o valor resolvido
+            if (saveResult.success && saveResult.id && !chatId) {
+              setChatId(saveResult.id);
+              setChatHistory(saveResult.id);
+            } else if (saveResult.success === false) {
+              console.log("Algo deu errado ao tentar salvar o chat", saveResult);
+            }
+          })
+          .catch(error => {
+            // Trate erros de rede ou exceções de promise
+            console.error("Erro fatal ao salvar o chat:", error);
+          });
       }
-
     })
+
   }
 
+  // MARK: Return Component
   return (
-    <form action={handleFormSubmit} className={style.ChatContainer}>
+    <form action={handleFormSubmit} className={style.ChatContainer} >
 
       <div className={style.ChatHeader}>
         <h1>Assistente IA</h1>
@@ -121,7 +154,7 @@ export default function Chat() {
           name="message"
           placeholder="Digite alguma coisa"
           className={style.InputField}
-          onChange={(e) => setUserMessageInput(e.target.value)}
+          defaultValue={userMessageInput}
           disabled={isPending}
         />
 

@@ -67,3 +67,42 @@
     opacity: 0.7;
   }
 }
+
+.scrollable-element::-webkit-scrollbar {
+    /* Tornamos a barra fina para que seja discreta */
+    width: 8px; /* Para scroll vertical */
+    height: 8px; /* Para scroll horizontal, se necessário */
+}
+
+/* 2. Discrição: O 'fundo' onde o scroll se move (o 'track') */
+.scrollable-element::-webkit-scrollbar-track {
+    /* Fundo neutro e quase transparente para não competir com o conteúdo */
+    background: rgba(0, 0, 0, 0.05);
+    /* Adiciona uma borda sutilmente arredondada para um toque moderno */
+    border-radius: 10px;
+}
+
+/* 3. Foco: O 'pegador' que o usuário move (o 'thumb') */
+.scrollable-element::-webkit-scrollbar-thumb {
+    /* Cor cinza escura para alto contraste, mas não preto puro */
+    background-color: #707070;
+    /* Cantos arredondados para um design mais suave */
+    border-radius: 10px;
+    /* Adicionamos uma pequena margem interna (padding) para criar um efeito de borda discreta
+       e evitar que o thumb toque as extremidades do track, o que o torna visualmente mais 'flutuante' */
+    border: 2px solid rgba(255, 255, 255, 0); /* Mantenha transparente */
+}
+
+/* 4. Engajamento: O feedback visual ao passar o mouse ('hover') */
+.scrollable-element::-webkit-scrollbar-thumb:hover {
+    /* Escurece ligeiramente para fornecer feedback visual */
+    background-color: #555555;
+}
+
+/* 5. Acessibilidade (Opcional, mas Recomendado) */
+/* Se houver uma cor de destaque na sua aplicação, você pode usá-la aqui.
+   Por exemplo, para o botão "good night" em azul escuro. */
+.scrollable-element:focus::-webkit-scrollbar-thumb {
+    /* Se o elemento rolável estiver focado (ex: após usar Tab), o scrollbar pode assumir a cor de destaque */
+    /* background-color: #485c9f; /* Usando o tom azulado do botão */
+}

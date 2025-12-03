@@ -1,7 +1,7 @@
 "use client"
 
 import { editTask } from "@/actions/supabase";
-import { CloseButton, Dialog, Portal } from "@chakra-ui/react";
+import { Dialog, Portal } from "@chakra-ui/react";
 import { useState, useTransition } from "react";
 import style from "./style.module.scss";
 
@@ -11,26 +11,39 @@ interface ModalEditTaskProps {
 }
 
 export default function ModalEditTask({ title, id }: ModalEditTaskProps) {
+  const [isOpen, setIsOpen] = useState(false)
   const [userInput, setUserInput] = useState(title)
   const [isPending, startTransition] = useTransition();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // CRÍTICO: Para usar a lógica JS e não o submit nativo
+    e.preventDefault();
 
     startTransition(async () => {
-      // Sua Server Action editTask(newTitle, id)
       await editTask(userInput, id);
-      // Opcional: Fechar o modal aqui se a edição for bem-sucedida
+      handleClose()
     });
+  }
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen)
+  }
+
+  const handleClose = () => {
+    setIsOpen(false)
   }
 
   return (
     <Dialog.Root
+      open={isOpen}
       size={{ mdDown: "full", md: "lg" }}
       placement="center"
       motionPreset="slide-in-bottom"
     >
-      <Dialog.Trigger asChild onClick={(e) => e.stopPropagation()}>
+      <Dialog.Trigger asChild
+        onClick={(e) => {
+          e.stopPropagation()
+          handleToggle()
+        }}>
         <p>
           Editar Tarefa
         </p>
@@ -41,36 +54,49 @@ export default function ModalEditTask({ title, id }: ModalEditTaskProps) {
         <Dialog.Backdrop />
 
         <Dialog.Positioner>
-          <Dialog.Content>
+          <Dialog.Content className={style.ModalBodyContent}>
 
             <Dialog.Header>
 
-              <Dialog.Title>
+              <Dialog.Title className={style.ModalBodyContentTitle}>
                 Editar tarefa
               </Dialog.Title>
-
-              <Dialog.CloseTrigger asChild onClick={(e) => e.stopPropagation()}>
-                <CloseButton size="sm" />
-              </Dialog.CloseTrigger>
 
             </Dialog.Header>
 
             <Dialog.Body >
               <form onSubmit={onSubmit} className={style.ModalContent}>
-                <input
-                  type="text"
-                  name="title"
-                  placeholder="Nome da tarefa"
-                  required
-                  value={userInput}
-                  onChange={(e) => setUserInput(e.target.value)}
-                />
+                <label>
+                  <h1>
+                    Título da tarefa:
+                  </h1>
 
-                <button
-                  type="submit"
-                >
-                  Editar tarefa
-                </button>
+                  <input
+                    type="text"
+                    name="title"
+                    placeholder="ex: Comprar pão"
+                    value={userInput}
+                    onChange={(e) => setUserInput(e.target.value)}
+                    required />
+                </label>
+
+                <div className={style.ModalContentButtons}>
+                  <button
+                    type="button"
+                    onClick={handleClose}
+                    className={style.CancelButton}
+                  >
+                    Cancelar
+                  </button>
+
+                  <button
+                    type="submit"
+                    className="AddTaskButton"
+                  >
+                    Editar tarefa
+                  </button>
+                </div>
+
               </form >
             </Dialog.Body>
 

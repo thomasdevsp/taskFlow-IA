@@ -1,13 +1,39 @@
+"use client"
+
 import { insertTask } from "@/actions/supabase";
-import { CloseButton, Dialog, Portal } from "@chakra-ui/react";
+import { Dialog, Portal } from "@chakra-ui/react";
+import { startTransition, useState } from "react";
 import style from "./style.module.scss";
 
 export default function ModalAddTask() {
+  const [isOpen, setIsOpen] = useState(false)
 
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formElement = new FormData(e.currentTarget)
+
+    startTransition(async () => {
+      await insertTask(formElement);
+      handleClose()
+    });
+  }
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen)
+  }
+
+  const handleClose = () => {
+    setIsOpen(false)
+  }
   return (
-    <Dialog.Root size={{ mdDown: "full", md: "lg" }} placement="center" motionPreset="slide-in-bottom">
+    <Dialog.Root
+      open={isOpen}
+      size={{ mdDown: "full", md: "lg" }}
+      placement="center"
+      motionPreset="slide-in-bottom">
       <Dialog.Trigger asChild>
-        <button className={style.ModalTriggerButton}>
+        <button className={style.ModalTriggerButton} onClick={handleToggle}>
           Nova Tarefa +
         </button>
       </Dialog.Trigger>
@@ -17,29 +43,42 @@ export default function ModalAddTask() {
         <Dialog.Backdrop />
 
         <Dialog.Positioner>
-          <Dialog.Content>
+          <Dialog.Content className={style.ModalBodyContent}>
 
             <Dialog.Header>
 
-              <Dialog.Title>
+              <Dialog.Title className={style.ModalBodyContentTitle}>
                 Nova tarefa
               </Dialog.Title>
 
-              <Dialog.CloseTrigger asChild>
-                <CloseButton size="sm" />
-              </Dialog.CloseTrigger>
-
             </Dialog.Header>
 
-            <Dialog.Body >
-              <form action={insertTask} className={style.ModalContent}>
-                <input type="text" name="title" placeholder="Nome da tarefa" required />
+            <Dialog.Body>
+              <form onSubmit={onSubmit} className={style.ModalContent}>
+                <label>
+                  <h1>
+                    Título da tarefa:
+                  </h1>
 
-                <button
-                  type="submit"
-                >
-                  Cadastrar nova tarefa
-                </button>
+                  <input type="text" name="title" placeholder="ex: Comprar pão" required />
+                </label>
+
+                <div className={style.ModalContentButtons}>
+                  <button
+                    type="button"
+                    onClick={handleClose}
+                    className={style.CancelButton}
+                  >
+                    Cancelar
+                  </button>
+
+                  <button
+                    type="submit"
+                    className="AddTaskButton"
+                  >
+                    Cadastrar nova tarefa
+                  </button>
+                </div>
               </form>
             </Dialog.Body>
 

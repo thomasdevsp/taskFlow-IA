@@ -1,45 +1,6 @@
-.ModalContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-
-  input {
-    padding: 0.5rem;
-    width: 100%;
-    max-width: 400px;
-
-    background: #fff;
-    border-radius: 0.5rem;
-    color: #000;
-  }
-
-  button {
-    padding: 0.5rem 0.75rem;
-
-    color: #fff;
-    border: 1px solid #fff;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    opacity: 0.7;
-    transition: all 0.3s ease;
-
-  &:hover {
-    background: #000;
-    border-color: #444444;
-    color: #fff;
-    opacity: 1;
-  }
-  }
-
-}
-
 .ModalTriggerButton {
-  padding: 0.5rem 0.75rem;
 
   color: #000;
-  border: 1px solid #000;
-  border-radius: 0.5rem;
   cursor: pointer;
   opacity: 0.7;
   transition: all 0.3s ease;
@@ -48,5 +9,78 @@
     background: #000;
     color: #fff;
     opacity: 1;
+  }
+}
+
+.ModalBodyContent {
+  background: #fff !important;
+  color: #000;
+}
+
+.ModalBodyContentTitle {
+  font-size: 1.75rem;
+}
+
+.ModalContent {
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    h1 {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+
+    input {
+    padding: 0.5rem;
+    width: 100%;
+    max-width: 400px;
+
+    background: #fff;
+    border: 1px solid #000;
+    border-radius: 0.5rem;
+    color: #000;
+    }
+  }
+
+}
+
+.ModalContentButtons {
+  width: 100%;
+
+  display: flex;
+  justify-content: end;
+  gap: 0.5rem;
+
+  button {
+    padding: 0.5rem 0.75rem;
+
+    background: #1871f7;
+    border: 1px solid #fff;
+    border-radius: 0.5rem;
+    color: #fff;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+
+  &:hover {
+    border-color: #1871f7;
+    color: #fff;
+    opacity: 1;
+  }
+  }
+
+  .CancelButton {
+    background: #8b8a8a;
+
+    &:hover {
+    border-color: #8b8a8a;
+  }
   }
 }

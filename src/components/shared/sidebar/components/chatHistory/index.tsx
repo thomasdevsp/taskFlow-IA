@@ -17,6 +17,7 @@ export default function ChatHistory({ index, item }: ChatHistoryProps) {
 
   const handleOnClick = () => {
     setChatHistory(item.id)
+    localStorage.setItem('chatHistory', item.id)
   }
 
   const handleDeleteChat = async (e: React.MouseEvent) => {

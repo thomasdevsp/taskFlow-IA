@@ -21,7 +21,6 @@ export default async function Sidebar() {
 
         <NewChat />
 
-
         <div className={style.SidebarChatHistory}>
           <p>Conversas</p>
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { completTask, deleteTask } from "@/actions/supabase"
+import { completTask, deleteTask, turnTodoTask } from "@/actions/supabase"
 import ModalEditTask from "@/components/shared/modalEditTask"
 import { Menu, Portal } from "@chakra-ui/react"
 import { BiTrash } from "react-icons/bi"
@@ -15,12 +15,16 @@ interface TaskActionsProps {
 
 export default function TaskActions({ id, isCompleted, title }: TaskActionsProps) {
 
+  const handleTurnToDoTask = async () => {
+    await turnTodoTask(id)
+  }
+
   const handleCompletTask = async () => {
-    const response = await completTask(id)
+    await completTask(id)
   }
 
   const handleDeleteTask = async () => {
-    const response = await deleteTask(id)
+    await deleteTask(id)
   }
 
   return (
@@ -37,12 +41,32 @@ export default function TaskActions({ id, isCompleted, title }: TaskActionsProps
         <Portal>
           <Menu.Positioner>
             <Menu.Content>
-              <Menu.Item value="edit" onClick={(e) => { e.stopPropagation() }}  >
+
+              <Menu.Item
+                value="edit"
+                onClick={(e) => { e.stopPropagation() }}  >
+
                 <ModalEditTask key={id} title={title ?? ""} id={id} />
+
               </Menu.Item>
-              <Menu.Item value="complet" onClick={handleCompletTask}>
-                Completar tarefa
-              </Menu.Item>
+
+              {isCompleted ?
+                (
+                  <Menu.Item value="complet" onClick={handleTurnToDoTask}>
+
+                    Mudar para a fazer
+
+                  </Menu.Item>
+                )
+                :
+                (
+                  <Menu.Item value="complet" onClick={handleCompletTask}>
+
+                    Completar tarefa
+
+                  </Menu.Item>
+                )}
+
             </Menu.Content>
           </Menu.Positioner>
         </Portal>

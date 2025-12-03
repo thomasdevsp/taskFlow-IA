@@ -9,6 +9,7 @@ export default function NewChat() {
 
   const handleOnClick = () => {
     intiateNewChat()
+    window.location.reload()
   }
 
   return (
