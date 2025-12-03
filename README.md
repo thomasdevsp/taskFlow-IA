@@ -4,7 +4,6 @@
 
 🔗 **Links Relevantes:**
 - [Acesso ao Deploy](https://task-flow-ia.vercel.app/)
-- https://docs.n8n.io/workflows/(URL_DO_FLUXO_N8N_EXPOSTO)
 
 Um template de aplicação full-stack que demonstra a integração de IA conversacional (**Gemini**) para gerenciamento de tarefas (CRUD) via chat. Utiliza **n8n** como camada de orquestração backend e **Supabase** para persistência de dados e autenticação (OAuth).
 
