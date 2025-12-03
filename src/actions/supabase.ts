@@ -27,8 +27,6 @@ export async function insertTask(formData: FormData) {
   const session = await auth()
   const rawTitle = formData.get('title') as string
 
-
-
   const {data, error} = await supabase
   .from("todo_items")
   .upsert({
@@ -63,6 +61,24 @@ export async function editTask(newTitle: string, id: number) {
   }
 
   revalidatePath('/');
+}
+
+export async function turnTodoTask(id: number) {
+  const {data, error} = await supabase
+  .from("todo_items")
+  .update({
+    is_completed: false
+  })
+  .eq("id", id)
+
+  if (error) {
+
+    console.error("Supabase Error fetching todos:", error.message);
+    throw new Error("Falha ao mudar tarefa para a fazer.");
+  }
+
+  revalidatePath('/');
+  return data
 }
 
 export async function completTask(id: number) {

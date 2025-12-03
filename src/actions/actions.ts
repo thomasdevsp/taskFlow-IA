@@ -91,6 +91,7 @@ export async function saveChatHistory(
       return { success: false, id: null }
     }
 
+    revalidatePath('/');
     return {success: true, id: data[0].id}
   }
 
